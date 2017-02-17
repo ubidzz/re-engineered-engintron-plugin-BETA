@@ -32,7 +32,7 @@ This plugin will search the /usr/local/apache/conf/httpd.conf file for all the v
 
 You can SSH and run this /etc/nginx/ssl/build_nginx_ssl_vhosts.sh command to run the plugin to create/update/delete the domains crt, key, caboundle and conf files or the cronjob will do it for you automatically every hour.
 
-Here is a output example from SSH<br>
+<b>Here is a output example from SSH</b><br>
 ├──Searching the cPanel httpd.conf file for all domains that have SSL installed.....<br>
 ├──────────────────────────────────────────────────────────────<br>
 ├──├──Installing my-hosted-website.com SSL conf file.........<br>
