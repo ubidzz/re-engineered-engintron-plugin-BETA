@@ -1,0 +1,1 @@
+0 * * * * root /etc/nginx/ssl/build_nginx_ssl_vhosts.sh /dev/null 2> /dev/null
