@@ -5,12 +5,16 @@ Enable HTTP/2, OCSP stapling and automatically builds the SSL conf files for all
 Installed engintron plugin for WHM/cPanel<br>
 Apache SSL port must be set to 444
 
+<b>Install:</b><br>
 <b>I have not yet made the install page for this plugin and this plugin is still being developed.</b>
+Right now you can only manually upload the files to your server and create the folders needed that is shown below in the install tree.<br>
+After uploading the files and creating the folder and setting the permissions run this in SSH /etc/nginx/ssl/build_nginx_ssl_vhosts.sh.<br>
+Then change your Apache SSL port to 444 at WHM->Server Configuration->Tweak Settings->System->Apache SSL port
 
 <b>Information</b><br>
 This plugin will search the /usr/local/apache/conf/httpd.conf file for all the virtual hosts that have SSL installed by cPanel AutoSSL or by the user in cPanel. This plugin will run every hour to create/update/delete the domain_com.conf, domain_com.crt, domain_com.key and domain_com.pem files. When it is searching the /usr/local/apache/conf/httpd.conf file it will get the installed key, cert, caboundle paths and copy them in to the nginx ssl folders. So if you ever unstall this plugin it wont delete the apache cert, key and cabound files because the nginx server has it own copys. 
 
-<b>SSL-plugin-for-engintron tree</b><br>
+<b>SSL-plugin-for-engintron install tree</b><br>
 ├──/etc/cron.d/ (Cronjob Folder)<br>
 ├──├──nginx_ssl (Cronjob to run the build_nginx_ssl_vhosts.sh every hour)<br>
 ├──/etc/nginx/ (Nginx Folder)<br>
