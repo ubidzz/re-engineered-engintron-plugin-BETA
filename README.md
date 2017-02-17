@@ -10,7 +10,7 @@ Apache SSL port must be set to 444
 Right now you can only manually upload the files to your server and create the folders needed that is shown below in the install tree.<br>
 After uploading the files and creating the folders and setting the permissions run this in SSH /etc/nginx/ssl/build_nginx_ssl_vhosts.sh.<br>
 Then change your Apache SSL port to 444 at WHM->Server Configuration->Tweak Settings->System->Apache SSL port.<br>
-Restart your apache and nginx server.<br>
+Restart your apache and nginx servers.<br>
 Your finished.
 
 
