@@ -10,12 +10,12 @@ This plugin will search the /usr/local/apache/conf/httpd.conf file for all the v
 
 <b>SSL-plugin-for-engintron tree</b><br>
 ├──/etc/cron.d/ (Folder)<br>
-├──├──nginx_ssl (file)<br>
+├──├──nginx_ssl (Cronjob to run the build_nginx_ssl_vhosts.sh every hour)<br>
 ├──/etc/nginx/ (Folder)<br>
 ├──├──ssl_proxy_params_common (File)<br>
 ├──├──ssl (Folder)<br>
-├──├──├──build_nginx_ssl_vhosts.sh (file)<br>
-├──├──├──caboundles (Folder)<br>
-├──├──├──certs (Folder)<br>
-├──├──├──keys (Folder)<br>
-├──├──├──vhosts (Folder)<br>
+├──├──├──build_nginx_ssl_vhosts.sh (Used to build/update/delete the caboundle, cert, key and the domain SSL conf files)<br>
+├──├──├──caboundles (All domains caboundle files will be copied here)<br>
+├──├──├──certs (All domains cert files will be copied here)<br>
+├──├──├──keys (All domains key files will be copied here)<br>
+├──├──├──vhosts (All domains vhost files will be created here)<br>
