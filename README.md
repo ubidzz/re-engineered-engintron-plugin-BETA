@@ -1,1 +1,2 @@
 # SSL-plugin-for-engintron-BETA
+Enable HTTP/2, OCSP stapling and automatically build the SSL conf files for nginx
