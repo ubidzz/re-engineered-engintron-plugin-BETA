@@ -20,7 +20,7 @@ This plugin will search the /usr/local/apache/conf/httpd.conf file for all the v
 
 <b>SSL-plugin-for-engintron install tree</b><br>
 ├──/etc/cron.d/ (Cronjob Folder)<br>
-├──├──nginx_ssl (Cronjob to run the build_nginx_ssl_vhosts.sh every hour)<br>
+├──├──nginx_ssl (Cronjob to run the build_nginx_ssl_vhosts.sh file every hour)<br>
 ├──/etc/nginx/ (Nginx Folder)<br>
 ├──├──ssl_proxy_params_common (File)<br>
 ├──├──ssl (SSL Folder)<br>
