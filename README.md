@@ -2,8 +2,7 @@
 Enable HTTP/2, OCSP stapling and automatically builds the SSL conf files for all domains that has SSL installed
 
 <b>Requirements:</b><br>
-Installed engintron plugin for WHM/cPanel<br>
-Apache SSL port must be set to 444
+Installed engintron plugin for WHM/cPanel
 
 <b>Install:</b><br>
 <b>I have not yet made the install page for this plugin and this plugin is still being developed.</b><br>
