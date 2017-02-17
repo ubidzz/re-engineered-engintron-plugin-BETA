@@ -20,4 +20,4 @@ This plugin will search the /usr/local/apache/conf/httpd.conf file for all the v
 ├──├──├──keys (All domains key files will be copied here)<br>
 ├──├──├──vhosts (All domains vhost files will be created here)<br>
 
-You can SSH and run this /etc/nginx/ssl/build_nginx_ssl_vhosts.sh command to run the plugin to create/update/delete the domains crt, key, caboundle and conf files or the cronjob do it for you automatically every hour.
+You can SSH and run this /etc/nginx/ssl/build_nginx_ssl_vhosts.sh command to run the plugin to create/update/delete the domains crt, key, caboundle and conf files or the cronjob will do it for you automatically every hour.
