@@ -22,7 +22,7 @@ This plugin will search the /usr/local/apache/conf/httpd.conf file for all the v
 ├──/etc/cron.d/ (Cronjob Folder)<br>
 ├──├──nginx_ssl (Cronjob to run the build_nginx_ssl_vhosts.sh file every hour)<br>
 ├──/etc/nginx/ (Nginx Folder)<br>
-├──├──/etc/nginx/conf.d (nginx conf Folder)
+├──├──conf.d (nginx conf Folder)
 ├──├──├──default_ssl.conf
 ├──├──ssl_proxy_params_common (File)<br>
 ├──├──ssl (SSL Folder)<br>
