@@ -9,7 +9,7 @@ Apache SSL port must be set to 444
 <b>I have not yet made the install page for this plugin and this plugin is still being developed.</b><br>
 1. Right now you can only manually upload the files to your server and create the folders needed that is shown below in the install tree.<br>
 2. After uploading the files and creating the folders and setting the permissions run this in SSH /etc/nginx/ssl/build_nginx_ssl_vhosts.sh.<br>
-3. Open the /etc/nginx/default.conf file and find this set $CACHE_BYPASS_FOR_DYNAMIC 0; and add this befor it set $CONNECTION_TYPE http;<br>
+3. Open the /etc/nginx/default.conf file and find this set $CACHE_BYPASS_FOR_DYNAMIC 0; and add this before it set $CONNECTION_TYPE http;<br>
 4. Open the /etc/nginx/proxy_params_common file and find this proxy_pass http://$PROXY_DOMAIN_OR_IP:$PROXY_TO_PORT; and replace it with  this proxy_pass $CONNECTION_TYPE://$PROXY_DOMAIN_OR_IP:$PROXY_TO_PORT;<br>
 5. Then change your Apache SSL port to 444 at WHM->Server Configuration->Tweak Settings->System->Apache SSL port.<br>
 6. Restart your apache and nginx servers.<br>
