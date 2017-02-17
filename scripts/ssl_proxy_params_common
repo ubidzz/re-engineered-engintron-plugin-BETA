@@ -19,6 +19,9 @@ ssl_session_tickets on;
 http2_max_field_size 16k;
 http2_max_header_size 32k;
 
+# Diffie-Hellman parameter for DHE ciphersuites (2048 bits)
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
 # deny all; # DO NOT REMOVE OR CHANGE THIS LINE - Used when Engintron is disabled to block Nginx from becoming an open proxy
 set $CONNECTION_TYPE https;
 set $CACHE_BYPASS_FOR_DYNAMIC 0;
