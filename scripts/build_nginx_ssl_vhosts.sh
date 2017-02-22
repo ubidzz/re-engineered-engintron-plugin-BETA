@@ -20,9 +20,6 @@ function rebuildSSLvhosts
 			fqdn=${ServerName//./_};
 			fqdnServerName=${fqdn//-/_};
 
-			## Checking to see if the SSL was deleted from httpd.conf file
-			checkVhosts $fqdnServerName.conf
-
 			echo "|──|──Installing $ServerName nginx SSL conf file.........";
 			echo "|──|──|──The SSL cert file was found and was copied to the $CUSTOMCERTSPATH folder.";
 			sed -n 'p' $SSLCertificateFile $SSLCACertificateFile > $CUSTOMCERTSPATH/$fqdnServerName.crt;
