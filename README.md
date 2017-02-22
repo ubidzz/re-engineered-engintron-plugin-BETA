@@ -35,12 +35,12 @@ You can SSH and run this /etc/nginx/ssl/build_nginx_ssl_vhosts.sh command to run
 It will delete all the SSL stuff first then rebuild all the installed SSL that is found in the httpd.conf file..
 
 <b>Here is a output example from SSH</b><br>
-|──Deleting all SSL stuff.....
-|──────────────────────────────────────────────────────────────────────
+├──Deleting all SSL stuff.....
+├──────────────────────────────────────────────────────────────────────
 ├──Deleting latatinachecrea_creomarket_it SSL stuff
-|──────────────────────────────────────────────────────────────────────
+├──────────────────────────────────────────────────────────────────────
 ├──Deleting my_hosted_website_com SSL stuff
-|──────────────────────────────────────────────────────────────────────
+├──────────────────────────────────────────────────────────────────────
 ├──Searching the cPanel httpd.conf file for all domains that have SSL installed.....<br>
 ├──────────────────────────────────────────────────────────────<br>
 ├──├──Installing my-hosted-website.com SSL conf file.........<br>
