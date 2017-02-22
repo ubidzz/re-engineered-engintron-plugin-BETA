@@ -45,6 +45,7 @@ function rebuildSSLvhosts
 					ssl_trusted_certificate $CHAINPATH/$ServerName.pem;
 					# ============ End OCSP stapling protection ============
 				";
+			else
 				## Displaying a error that the CAboundle was not found ##
 				echo "|--|--|--ERROR!";
 				echo "|--|--|--|--The SSL CAboundle file could not be found for this domain $ServerName";
