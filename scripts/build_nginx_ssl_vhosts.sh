@@ -36,7 +36,7 @@ function buildConfFile
 	echo "|──────────────────────────────────────────────────────────────────────";
 }
 
-function rebuildSSLvhosts ()
+function rebuildSSLvhosts
 {
 	echo "|──Searching the cPanel httpd.conf file for all domains that have SSL installed.....";
 	echo "|──────────────────────────────────────────────────────────────────────";
@@ -83,9 +83,9 @@ function rebuildSSLvhosts ()
 	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
 }
 
-function deleteAllVhosts ()
+function deleteAllVhosts
 {
-	echo "|──Deleting all SSL stuff.....";
+	echo "|──Deleting all the domains SSL stuff.....";
 	echo "|──────────────────────────────────────────────────────────────────────";
         ## Checking to see if the SSL was deleted from httpd.conf file
         for domain in  `ls $VHOSTPATH/*.conf`
@@ -99,6 +99,7 @@ function deleteAllVhosts ()
                 rm -rf $CUSTOMCERTSPATH/$cleanname.crt;
                 rm -rf $CHAINPATH/$cleanname.pem;
         done
+	echo "├──Now starting the rebuild SSL command";
 	rebuildSSLvhosts;
 }
 
