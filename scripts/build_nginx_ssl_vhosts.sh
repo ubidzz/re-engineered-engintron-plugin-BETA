@@ -8,12 +8,13 @@ VHOSTPATH='/etc/nginx/ssl/vhosts';
 
 echo "|--Searching the cPanel httpd.conf file for all domains that have SSL installed.....";
 echo "|---------------------------------------------------------------";
+
 function checkVhosts()
 {
         ## Checking to see if the SSL was deleted from httpd.conf file
         for domain in  `ls $VHOSTSPATH/*.conf`
         do
-                if [[ $domain = $VHOSTSPATH/$fqdnServerName.conf ]]
+                if [[ $domain -nt $VHOSTSPATH/$fqdnServerName.conf ]]
                 then
                         val='0';
                 fi
@@ -38,13 +39,11 @@ do
 		
 		## Checking to see if the SSL was deleted from httpd.conf file
                 checkVhosts $fqdnServerName.conf
-
                 if [[ $val = 1 ]] && [[ -a $VHOSTSPATH/$fqdnServerName.conf ]]
                 then
                 {
-                        echo "";
-                        echo ├──├──SSL was deletd from the httpd.conf;
-                        echo ├──├──├──Deleteing SSL stuff for $fqdnServerName;
+                        echo "├──├──SSL was deletd from the httpd.conf";
+                        echo "├──├──├──Deleteing SSL stuff for $fqdnServerName";
                         rm -rf $VHOSTSPATH/$fqdnServerName.conf;
                         rm -rf $CUSTOMKEYPATH/$fqdnServerName.key;
                         rm -rf $CUSTOMCERTSPATH/$fqdnServerName.crt;
