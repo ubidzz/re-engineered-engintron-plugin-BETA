@@ -8,26 +8,27 @@ VHOSTPATH='/etc/nginx/ssl/vhosts';
 
 function buildConfFile
 {
-	## SSL domain_com.conf template ##
-	FILEDATA=$"# /**
-	#  * @version    1.8.0
-	#  * @package    Engintron for cPanel/WHM
-	#  * @author     Fotis Evangelou
-	#  * @url        https://engintron.com
-	#  * @copyright  Copyright (c) 2010 - 2017 Nuevvo Webware P.C. All rights reserved.
-	#  * @license    GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
-	#  */
-	server {
-		listen 443 ssl http2;
-		server_name $ServerName www.$ServerName;
+## SSL domain_com.conf template ##
+FILEDATA=$"# /**
+#  * @version    1.8.0
+#  * @package    Engintron for cPanel/WHM
+#  * @author     Fotis Evangelou
+#  * @url        https://engintron.com
+#  * @copyright  Copyright (c) 2010 - 2017 Nuevvo Webware P.C. All rights reserved.
+#  * @license    GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+#  */
+server {
+	listen 443 ssl http2;
+	server_name $ServerName www.$ServerName;
 		
-		ssl_certificate      $CUSTOMCERTSPATH/$fqdnServerName.crt;
-		ssl_certificate_key  $CUSTOMKEYPATH/$fqdnServerName.key;
+	ssl_certificate      $CUSTOMCERTSPATH/$fqdnServerName.crt;
+	ssl_certificate_key  $CUSTOMKEYPATH/$fqdnServerName.key;
 		
-		$CABOUNDLEDATA
+	$CABOUNDLEDATA
 		
-		include ssl_proxy_params_common;
-	}";
+	include ssl_proxy_params_common;
+}";
+	
 	## Empty the CABOUNDLEDATA variables each time it loops so that we don't ##
 	## add the wrong CAboundle info in to the vhost that is being created ##
 	CABOUNDLEDATA="";
