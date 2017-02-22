@@ -37,10 +37,10 @@ function rebuildSSLvhosts
 				echo "|──|──|──|──SSL CAboundle file: $CHAINPATH/$fqdnServerName.pem";
 
 				CABOUNDLEDATA=$"# ============ Start OCSP stapling protection ============
-					ssl_stapling on;
-					ssl_stapling_verify on;
-					ssl_trusted_certificate $CHAINPATH/$ServerName.pem;
-					# ============ End OCSP stapling protection ============
+				ssl_stapling on;
+				ssl_stapling_verify on;
+				ssl_trusted_certificate $CHAINPATH/$ServerName.pem;
+				# ============ End OCSP stapling protection ============
 				";
 			else
 				## Displaying a error that the CAboundle was not found ##
@@ -51,11 +51,11 @@ function rebuildSSLvhosts
 
 	## SSL domain_com.conf template ##
 	FILEDATA=$"# /**
-	#  * @version    1.7.2
+	#  * @version    1.8.0
 	#  * @package    Engintron for cPanel/WHM
 	#  * @author     Fotis Evangelou
 	#  * @url        https://engintron.com
-	#  * @copyright  Copyright (c) 2010 - 2016 Nuevvo Webware P.C. All rights reserved.
+	#  * @copyright  Copyright (c) 2010 - 2017 Nuevvo Webware P.C. All rights reserved.
 	#  * @license    GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
 	#  */
 	server {
