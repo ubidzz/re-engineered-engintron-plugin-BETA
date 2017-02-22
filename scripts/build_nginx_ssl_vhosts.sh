@@ -84,6 +84,9 @@ function rebuildSSLvhosts
 			buildConfFile;
 	fi
 	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
+	
+	echo "├──Reloading nginx";
+	service nginx reload;
 }
 
 function deleteAllVhosts
@@ -102,11 +105,8 @@ function deleteAllVhosts
                 rm -rf $CUSTOMCERTSPATH/$cleanname.crt;
                 rm -rf $CHAINPATH/$cleanname.pem;
         done
-	echo "├──Now starting the rebuild SSL command";
+	echo "├──Now starting the rebuild SSL processe";
 	rebuildSSLvhosts;
 }
 
 deleteAllVhosts;
-
-echo "├──Reloading nginx";
-service nginx reload;
