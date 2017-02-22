@@ -9,23 +9,6 @@ VHOSTPATH='/etc/nginx/ssl/vhosts';
 echo "|--Searching the cPanel httpd.conf file for all domains that have SSL installed.....";
 echo "|---------------------------------------------------------------";
 
-function deleteAllVhosts
-{
-        ## Checking to see if the SSL was deleted from httpd.conf file
-        for domain in  `ls $VHOSTSPATH/*.conf`
-        do
-		echo "├──├──SSL was deletd from the httpd.conf";
-		echo "├──├──├──Deleteing SSL stuff for $fqdnServerName";
-		rm -rf $VHOSTSPATH/$TLD.conf;
-		rm -rf $CUSTOMKEYPATH/$TLD.key;
-		rm -rf $CUSTOMCERTSPATH/$TLD.crt;
-		rm -rf $CHAINPATH/$TLD.pem;
-        done
-	rebuildSSLvhosts
-}
-
-deleteAllVhosts;
-
 function rebuildSSLvhosts
 {
 	while read ServerName SSLCertificateFile SSLCertificateKeyFile SSLCACertificateFile
@@ -77,16 +60,12 @@ function rebuildSSLvhosts
 	#  * @copyright  Copyright (c) 2010 - 2016 Nuevvo Webware P.C. All rights reserved.
 	#  * @license    GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
 	#  */
-
 	server {
 		listen 443 ssl http2;
 		server_name $ServerName www.$ServerName;
-
 		ssl_certificate      $CUSTOMCERTSPATH/$fqdnServerName.crt;
 		ssl_certificate_key  $CUSTOMKEYPATH/$fqdnServerName.key;
-
 		$CABOUNDLEDATA
-
 		include ssl_proxy_params_common;
 	}";
 
@@ -101,5 +80,23 @@ function rebuildSSLvhosts
 	fi
 	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
 }
+
+function deleteAllVhosts
+{
+        ## Checking to see if the SSL was deleted from httpd.conf file
+        for domain in  `ls $VHOSTSPATH/*.conf`
+        do
+		echo "├──├──SSL was deletd from the httpd.conf";
+		echo "├──├──├──Deleteing SSL stuff for $fqdnServerName";
+		rm -rf $VHOSTSPATH/$TLD.conf;
+		rm -rf $CUSTOMKEYPATH/$TLD.key;
+		rm -rf $CUSTOMCERTSPATH/$TLD.crt;
+		rm -rf $CHAINPATH/$TLD.pem;
+        done
+	rebuildSSLvhosts
+}
+
+deleteAllVhosts;
+
 echo "|--Reloading nginx";
 service nginx reload;
