@@ -6,6 +6,35 @@ CUSTOMCERTSPATH='/etc/nginx/ssl/certs';
 CUSTOMKEYPATH='/etc/nginx/ssl/keys';
 VHOSTPATH='/etc/nginx/ssl/vhosts';
 
+function buildConfFile
+{
+	## SSL domain_com.conf template ##
+	FILEDATA=$"# /**
+	#  * @version    1.8.0
+	#  * @package    Engintron for cPanel/WHM
+	#  * @author     Fotis Evangelou
+	#  * @url        https://engintron.com
+	#  * @copyright  Copyright (c) 2010 - 2017 Nuevvo Webware P.C. All rights reserved.
+	#  * @license    GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+	#  */
+	server {
+		listen 443 ssl http2;
+		server_name $ServerName www.$ServerName;
+		ssl_certificate      $CUSTOMCERTSPATH/$fqdnServerName.crt;
+		ssl_certificate_key  $CUSTOMKEYPATH/$fqdnServerName.key;
+		$CABOUNDLEDATA
+		include ssl_proxy_params_common;
+	}";
+	## Empty the CABOUNDLEDATA variables each time it loops so that we don't ##
+	## add the wrong CAboundle info in to the vhost that is being created ##
+	CABOUNDLEDATA="";
+
+	echo "$FILEDATA" > $VHOSTPATH/$fqdnServerName.conf;
+	echo "├──├──The SSL $fqdnServerName.conf file was successfully created";
+	echo "├──├──├── SSL conf file: $VHOSTSPATH/$fqdnServerName.conf";
+	echo "|──────────────────────────────────────────────────────────────────────";
+}
+
 function rebuildSSLvhosts
 {
 	echo "|──Searching the cPanel httpd.conf file for all domains that have SSL installed.....";
@@ -48,33 +77,7 @@ function rebuildSSLvhosts
 				echo "|──|──|──|──The SSL CAboundle file could not be found for this domain $ServerName";
 				echo "|──|──|──|──Could not add the OCSP stapling protection to the $fqdnServerName.conf file because the SSL CAboundle file is missing.";
 			fi
-
-	## SSL domain_com.conf template ##
-	FILEDATA=$"# /**
-	#  * @version    1.8.0
-	#  * @package    Engintron for cPanel/WHM
-	#  * @author     Fotis Evangelou
-	#  * @url        https://engintron.com
-	#  * @copyright  Copyright (c) 2010 - 2017 Nuevvo Webware P.C. All rights reserved.
-	#  * @license    GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
-	#  */
-	server {
-		listen 443 ssl http2;
-		server_name $ServerName www.$ServerName;
-		ssl_certificate      $CUSTOMCERTSPATH/$fqdnServerName.crt;
-		ssl_certificate_key  $CUSTOMKEYPATH/$fqdnServerName.key;
-		$CABOUNDLEDATA
-		include ssl_proxy_params_common;
-	}";
-
-	## Empty the CABOUNDLEDATA variables each time it loops so that we don't ##
-	## add the wrong CAboundle info in to the vhost that is being created ##
-	CABOUNDLEDATA="";
-
-	echo "$FILEDATA" > $VHOSTPATH/$fqdnServerName.conf;
-	echo "├──├──The SSL $fqdnServerName.conf file was successfully created";
-	echo "├──├──├── SSL conf file: $VHOSTSPATH/$fqdnServerName.conf";
-	echo "|──────────────────────────────────────────────────────────────────────";
+			buildConfFile;
 	fi
 	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
 }
@@ -95,7 +98,7 @@ function deleteAllVhosts
                 rm -rf $CUSTOMCERTSPATH/$cleanname.crt;
                 rm -rf $CHAINPATH/$cleanname.pem;
         done
-	rebuildSSLvhosts
+	rebuildSSLvhosts;
 }
 
 deleteAllVhosts;
