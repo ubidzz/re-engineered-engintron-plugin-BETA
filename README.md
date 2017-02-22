@@ -36,14 +36,14 @@ It will delete all the SSL stuff first then rebuild all the installed SSL that i
 
 <b>Here is a output example from SSH</b><br>
 ├──Deleting all SSL stuff.....<br>
-├──────────────────────────────────────────────────────────────────────<br>
+├──────────────────────────────────────────────────────────────<br>
 ├──Deleting latatinachecrea_creomarket_it SSL stuff<br>
-├──────────────────────────────────────────────────────────────────────<br>
+├──────────────────────────────────────────────────────────────<br>
 ├──Deleting my_hosted_website_com SSL stuff<br>
-├──────────────────────────────────────────────────────────────────────<br>
+├──────────────────────────────────────────────────────────────<br>
 ├──Now starting the rebuild SSL command<br>
 |──Searching the cPanel httpd.conf file for all domains that have SSL installed.....<br>
-|──────────────────────────────────────────────────────────────────────<br>
+├──────────────────────────────────────────────────────────────<br>
 ├──├──Installing my-hosted-website.com SSL conf file.........<br>
 ├──├──├──The SSL cert file was found and was copied to the /etc/nginx/ssl/certs folder.<br>
 ├──├──├──├──SSL cert file: /etc/nginx/ssl/certs/my_hosted_website_com.crt<br>
