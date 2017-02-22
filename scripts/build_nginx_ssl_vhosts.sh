@@ -85,14 +85,15 @@ function rebuildSSLvhosts
 function deleteAllVhosts
 {
         ## Checking to see if the SSL was deleted from httpd.conf file
-        for domain in  `ls $VHOSTSPATH/*.conf`
+        for domain in  `ls $VHOSTPATH/*.conf`
         do
-		echo "├──├──SSL was deletd from the httpd.conf";
-		echo "├──├──├──Deleteing SSL stuff for $fqdnServerName";
-		rm -rf $VHOSTSPATH/$TLD.conf;
-		rm -rf $CUSTOMKEYPATH/$TLD.key;
-		rm -rf $CUSTOMCERTSPATH/$TLD.crt;
-		rm -rf $CHAINPATH/$TLD.pem;
+                name=${domain#$VHOSTPATH/};
+                cleanname=${name//.conf/};
+                echo "├──Deleting $cleanname SSL stuff";
+                rm -rf $VHOSTSPATH/$cleanname.conf;
+                rm -rf $CUSTOMKEYPATH/$cleanname.key;
+                rm -rf $CUSTOMCERTSPATH/$cleanname.crt;
+                rm -rf $CHAINPATH/$cleanname.pem;
         done
 	rebuildSSLvhosts
 }
