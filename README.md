@@ -30,9 +30,17 @@ This plugin will search the /usr/local/apache/conf/httpd.conf file for all the v
 ├──├──├──keys (All domains key files will be copied here)<br>
 ├──├──├──vhosts (All domains SSL conf files will be created here)<br>
 
-You can SSH and run this /etc/nginx/ssl/build_nginx_ssl_vhosts.sh command to run the plugin to create/update/delete the domains crt, key, caboundle and conf files or the cronjob will do it for you automatically every hour.
+You can SSH and run this /etc/nginx/ssl/build_nginx_ssl_vhosts.sh command to run the plugin to create/update/delete the domains crt, key, caboundle and conf files or the cronjob will do it for you automatically every 1 minute.
+
+It will delete all the SSL stuff first then rebuild all the installed SSL that is found in the httpd.conf file..
 
 <b>Here is a output example from SSH</b><br>
+|──Deleting all SSL stuff.....
+|──────────────────────────────────────────────────────────────────────
+├──Deleting latatinachecrea_creomarket_it SSL stuff
+|──────────────────────────────────────────────────────────────────────
+├──Deleting my_hosted_website_com SSL stuff
+|──────────────────────────────────────────────────────────────────────
 ├──Searching the cPanel httpd.conf file for all domains that have SSL installed.....<br>
 ├──────────────────────────────────────────────────────────────<br>
 ├──├──Installing my-hosted-website.com SSL conf file.........<br>
