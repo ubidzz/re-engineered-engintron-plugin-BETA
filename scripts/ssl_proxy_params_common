@@ -23,7 +23,6 @@ http2_max_header_size 32k;
 ssl_dhparam /etc/ssl/certs/dhparam.pem;
 
 # deny all; # DO NOT REMOVE OR CHANGE THIS LINE - Used when Engintron is disabled to block Nginx from becoming an open proxy
-set $CONNECTION_TYPE https;
 set $CACHE_BYPASS_FOR_DYNAMIC 0;
 set $CACHE_BYPASS_FOR_STATIC 0;
 set $PROXY_TO_PORT 444;
