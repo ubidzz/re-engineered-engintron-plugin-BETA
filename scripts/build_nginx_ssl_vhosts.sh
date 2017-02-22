@@ -6,6 +6,9 @@ CUSTOMCERTSPATH='/etc/nginx/ssl/certs';
 CUSTOMKEYPATH='/etc/nginx/ssl/keys';
 VHOSTPATH='/etc/nginx/ssl/vhosts';
 
+echo "|──Starting the SSL prosseces";
+echo "|──────────────────────────────────────────────────────────────────────";
+
 function buildConfFile
 {
 ## SSL domain_com.conf template ##
