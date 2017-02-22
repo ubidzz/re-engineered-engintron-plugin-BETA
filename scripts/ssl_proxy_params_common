@@ -1,5 +1,5 @@
 # /**
-#  * @version    1.7.3
+#  * @version    1.8.0
 #  * @package    Engintron for cPanel/WHM
 #  * @author     Fotis Evangelou
 #  * @url        https://engintron.com
@@ -7,20 +7,24 @@
 #  * @license    GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
 #  */
 
-# General SSL settings
-
-## Basic SSL Settings ##
-ssl_session_cache shared:SSL:10m;
-ssl_session_timeout 60m;
-ssl_ciphers EECDH+CHACHA20-draft:EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA256:EECDH+ECDSA+SHA384:EECDH+aRSA+SHA256:EECDH+aRSA+SHA384:EECDH+A$
-ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-ssl_prefer_server_ciphers on;
-ssl_session_tickets on;
-http2_max_field_size 16k;
-http2_max_header_size 32k;
+## General SSL settings ##
 
 # Diffie-Hellman parameter for DHE ciphersuites (2048 bits)
 ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+# Intermediate ssl_ciphers configuration. tweak to your needs.
+ssl_ciphers "ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS";
+
+# Basic SSL settings
+ssl_session_cache shared:SSL:50m;
+ssl_session_timeout 60m;
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+ssl_prefer_server_ciphers on;
+ssl_session_tickets off;
+
+# Basic http/2 settings
+http2_max_field_size 16k;
+http2_max_header_size 32k;
 
 # deny all; # DO NOT REMOVE OR CHANGE THIS LINE - Used when Engintron is disabled to block Nginx from becoming an open proxy
 set $CACHE_BYPASS_FOR_DYNAMIC 0;
@@ -33,101 +37,100 @@ set $SITE_URI "$host$request_uri";
 include custom_rules;
 
 location / {
-        try_files $uri $uri/ @backend;
+	try_files $uri $uri/ @backend;
 }
 
 location @backend {
-        include proxy_params_common;
-        # === MICRO CACHING ===
-        # Comment the following line to disable 1 second micro-caching for dynamic HTML content
-        include proxy_params_dynamic;
+	include proxy_params_common;
+	# === MICRO CACHING ===
+	# Comment the following line to disable 1 second micro-caching for dynamic HTML content
+	include proxy_params_dynamic;
 }
 
 # Enable browser cache for static content files (TTL is 1 hour)
 location ~* \.(?:json|xml|rss|atom)$ {
-        include proxy_params_common;
-        include proxy_params_static;
-        expires 1h;
-        add_header Pragma "public";
-        add_header Cache-Control "public";
-        add_header Vary "Accept-Encoding";
-        access_log off;
+	include proxy_params_common;
+	include proxy_params_static;
+	expires 1h;
+	add_header Pragma "public";
+	add_header Cache-Control "public";
+	add_header Vary "Accept-Encoding";
+	access_log off;
 }
 
 # Enable browser cache for CSS / JS (TTL is 30 days)
 location ~* \.(?:css|js)$ {
-        include proxy_params_common;
-        include proxy_params_static;
-        expires 30d;
-        add_header Pragma "public";
-        add_header Cache-Control "public";
-        add_header Vary "Accept-Encoding";
-        access_log off;
+	include proxy_params_common;
+	include proxy_params_static;
+	expires 30d;
+	add_header Pragma "public";
+	add_header Cache-Control "public";
+	add_header Vary "Accept-Encoding";
+	access_log off;
 }
 
 # Enable browser cache for media & document files (TTL is 60 days)
-location ~* ^.+.(jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|iso|doc|xls|exe|pdf|ppt|txt|tar|mid|midi|wav|bmp|rtf|mp3|ogv|ogg|flv|swf|mpeg|mpg|mpeg4|mp4|avi|wmv|js|css|3gp|sis|sisx|nth|svg|svgz)$
+location ~* \.(?:3gp|7z|avi|bmp|bz2|csv|divx|doc|docx|eot|exe|flac|flv|gz|less|mid|midi|mka|mkv|mov|mp3|mp4|mpeg|mpg|odp|ods|odt|ogg|ogm|ogv|opus|pdf|ppt|pptx|rar|rtf|swf|tar|tbz|tgz|tiff|txz|wav|webm|wma|wmv|xls|xlsx|xz|zip)$ 
 {
-        {
-        include proxy_params_common;
-        include proxy_params_static;
-        expires 60d;
-        add_header Pragma "public";
-        add_header Cache-Control "public";
-        access_log off;
+	include proxy_params_common;
+	include proxy_params_static;
+	expires 60d;
+	add_header Pragma "public";
+	add_header Cache-Control "public";
+	access_log off;
 }
 
 # Enable browser cache for fonts & fix @font-face cross-domain restriction (TTL is 60 days)
 location ~* \.(eot|ttf|otf|woff|woff2|svg|svgz)$ {
-        include proxy_params_common;
-        include proxy_params_static;
-        expires 60d;
-        add_header Pragma "public";
-        add_header Cache-Control "public";
-        add_header Vary "Accept-Encoding";
-        add_header Access-Control-Allow-Origin *;
-        access_log off;
+	include proxy_params_common;
+	include proxy_params_static;
+	expires 60d;
+	add_header Pragma "public";
+	add_header Cache-Control "public";
+	add_header Vary "Accept-Encoding";
+	add_header Access-Control-Allow-Origin *;
+	access_log off;
 }
 
 # Prevent logging of favicon and robot request errors
 location = /favicon.ico {
-        include proxy_params_common;
-        include proxy_params_static;
-        expires 60d;
-        add_header Pragma "public";
-        add_header Cache-Control "public";
-        access_log off;
-        log_not_found off;
+	include proxy_params_common;
+	include proxy_params_static;
+	expires 60d;
+	add_header Pragma "public";
+	add_header Cache-Control "public";
+	access_log off;
+	log_not_found off;
 }
 
 location = /robots.txt  {
-        include proxy_params_common;
-        include proxy_params_static;
-        expires 1d;
-        add_header Pragma "public";
-        add_header Cache-Control "public";
-        access_log off;
-        log_not_found off;
+	include proxy_params_common;
+	include proxy_params_static;
+	expires 1d;
+	add_header Pragma "public";
+	add_header Cache-Control "public";
+	access_log off;
+	log_not_found off;
 }
 
 location = /nginx_status {
-        stub_status;
-        access_log off;
-        log_not_found off;
-        # Uncomment the following 2 lines to make the Nginx status page private.
-        # If you do this and you have Munin installed, graphs for Nginx will stop working.
-        #allow 127.0.0.1;
-        #deny all;
+	stub_status;
+	access_log off;
+	log_not_found off;
+	# Uncomment the following 2 lines to make the Nginx status page private.
+	# If you do this and you have Munin installed, graphs for Nginx will stop working.
+	#allow 127.0.0.1;
+	#deny all;
 }
 
 location = /whm-server-status {
-        proxy_pass http://127.0.0.1:8080;
-        # Comment the following 2 lines to make the Apache status page public
-        allow 127.0.0.1;
-        deny all;
+	proxy_pass http://127.0.0.1:8080;
+	# Comment the following 2 lines to make the Apache status page public
+	allow 127.0.0.1;
+	deny all;
 }
 
 # Deny access to hidden files
 location ~ /\.ht {
-        deny all;
+	deny all;
 }
