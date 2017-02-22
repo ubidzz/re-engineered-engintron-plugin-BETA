@@ -75,7 +75,7 @@ function rebuildSSLvhosts
 				CABOUNDLEDATA=$"# ============ Start OCSP stapling protection ============
 				ssl_stapling on;
 				ssl_stapling_verify on;
-				ssl_trusted_certificate $CHAINPATH/$ServerName.pem;
+				ssl_trusted_certificate $CHAINPATH/$fqdnServerName.pem;
 				# ============ End OCSP stapling protection ============
 				";
 			else
