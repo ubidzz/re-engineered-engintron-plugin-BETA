@@ -32,7 +32,7 @@ This plugin will search the /usr/local/apache/conf/httpd.conf file for all the v
 
 You can SSH and run this /etc/nginx/ssl/build_nginx_ssl_vhosts.sh command to run the plugin to create/update/delete the domains crt, key, caboundle and conf files or the cronjob will do it for you automatically every 1 minute.
 
-It will delete all the SSL stuff first then rebuild all the installed SSL that is found in the httpd.conf file..
+It will delete all the SSL stuff first then rebuild all the installed SSL that is found in the httpd.conf file. This is to make sure that if any unstalled SSL or deleted SSL from the httpd.comf file is deleted from the nginx server.
 
 <b>Here is a output example from SSH</b><br>
 ├──Deleting all SSL stuff.....
