@@ -20,8 +20,10 @@ function buildConfFile
 	server {
 		listen 443 ssl http2;
 		server_name $ServerName www.$ServerName;
+		
 		ssl_certificate      $CUSTOMCERTSPATH/$fqdnServerName.crt;
 		ssl_certificate_key  $CUSTOMKEYPATH/$fqdnServerName.key;
+		
 		$CABOUNDLEDATA
 		
 		include ssl_proxy_params_common;
