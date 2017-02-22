@@ -6,7 +6,7 @@ CUSTOMCERTSPATH='/etc/nginx/ssl/certs';
 CUSTOMKEYPATH='/etc/nginx/ssl/keys';
 VHOSTPATH='/etc/nginx/ssl/vhosts';
 
-function buildConfFile ()
+function buildConfFile
 {
 	## SSL domain_com.conf template ##
 	FILEDATA=$"# /**
@@ -19,10 +19,11 @@ function buildConfFile ()
 	#  */
 	server {
 		listen 443 ssl http2;
-		server_name $0 www.$0;
-		ssl_certificate      $CUSTOMCERTSPATH/$1.crt;
-		ssl_certificate_key  $CUSTOMKEYPATH/$1.key;
-		$2
+		server_name $ServerName www.$ServerName;
+		ssl_certificate      $CUSTOMCERTSPATH/$fqdnServerName.crt;
+		ssl_certificate_key  $CUSTOMKEYPATH/$fqdnServerName.key;
+		$CABOUNDLEDATA
+		
 		include ssl_proxy_params_common;
 	}";
 	## Empty the CABOUNDLEDATA variables each time it loops so that we don't ##
@@ -77,7 +78,7 @@ function rebuildSSLvhosts ()
 				echo "|──|──|──|──The SSL CAboundle file could not be found for this domain $ServerName";
 				echo "|──|──|──|──Could not add the OCSP stapling protection to the $fqdnServerName.conf file because the SSL CAboundle file is missing.";
 			fi
-			buildConfFile $ServerName $fqdnServerName $CABOUNDLEDATA;
+			buildConfFile;
 	fi
 	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
 }
