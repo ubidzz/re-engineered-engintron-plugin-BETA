@@ -6,11 +6,11 @@ CUSTOMCERTSPATH='/etc/nginx/ssl/certs';
 CUSTOMKEYPATH='/etc/nginx/ssl/keys';
 VHOSTPATH='/etc/nginx/ssl/vhosts';
 
-echo "|--Searching the cPanel httpd.conf file for all domains that have SSL installed.....";
-echo "|---------------------------------------------------------------";
-
 function rebuildSSLvhosts
 {
+	echo "|──Searching the cPanel httpd.conf file for all domains that have SSL installed.....";
+	echo "|──────────────────────────────────────────────────────────────────────";
+	
 	while read ServerName SSLCertificateFile SSLCertificateKeyFile SSLCACertificateFile
 	do
 		## Making sure the SSL cert and key was found before creating the conf file ##
@@ -23,21 +23,21 @@ function rebuildSSLvhosts
 			## Checking to see if the SSL was deleted from httpd.conf file
 			checkVhosts $fqdnServerName.conf
 
-			echo "|--|--Installing $ServerName nginx SSL conf file.........";
-			echo "|--|--|--The SSL cert file was found and was copied to the $CUSTOMCERTSPATH folder.";
+			echo "|──|──Installing $ServerName nginx SSL conf file.........";
+			echo "|──|──|──The SSL cert file was found and was copied to the $CUSTOMCERTSPATH folder.";
 			sed -n 'p' $SSLCertificateFile $SSLCACertificateFile > $CUSTOMCERTSPATH/$fqdnServerName.crt;
-			echo "|--|--|--|--SSL cert file: $CUSTOMCERTSPATH/$fqdnServerName.crt";
+			echo "|──|──|──|──SSL cert file: $CUSTOMCERTSPATH/$fqdnServerName.crt";
 
-			echo "|--|--|--The SSL key file was found and was copied to the $CUSTOMKEYPATH folder.";
+			echo "|──|──|──The SSL key file was found and was copied to the $CUSTOMKEYPATH folder.";
 			cp $SSLCertificateKeyFile $CUSTOMKEYPATH/$fqdnServerName.key;
-			echo "|--|--|--|--SSL key file: $CUSTOMKEYPATH/$fqdnServerName.key";
+			echo "|──|──|──|──SSL key file: $CUSTOMKEYPATH/$fqdnServerName.key";
 
 			## checking to see if the CAboundle was found ##
 			if [[ -n $SSLCACertificateFile ]]
 			then
-				echo "|--|--|--The SSL CAboundle file was found and was copied to the $CHAINPATH folder.";
+				echo "|──|──|──The SSL CAboundle file was found and was copied to the $CHAINPATH folder.";
 				cp $SSLCACertificateFile $CHAINPATH/$fqdnServerName.pem;
-				echo "|--|--|--|--SSL CAboundle file: $CHAINPATH/$fqdnServerName.pem";
+				echo "|──|──|──|──SSL CAboundle file: $CHAINPATH/$fqdnServerName.pem";
 
 				CABOUNDLEDATA=$"# ============ Start OCSP stapling protection ============
 					ssl_stapling on;
@@ -47,9 +47,9 @@ function rebuildSSLvhosts
 				";
 			else
 				## Displaying a error that the CAboundle was not found ##
-				echo "|--|--|--ERROR!";
-				echo "|--|--|--|--The SSL CAboundle file could not be found for this domain $ServerName";
-				echo "|--|--|--|--Could not add the OCSP stapling protection to the $fqdnServerName.conf file because the SSL CAboundle file is missing.";
+				echo "|──|──|──ERROR!";
+				echo "|──|──|──|──The SSL CAboundle file could not be found for this domain $ServerName";
+				echo "|──|──|──|──Could not add the OCSP stapling protection to the $fqdnServerName.conf file because the SSL CAboundle file is missing.";
 			fi
 
 	## SSL domain_com.conf template ##
@@ -75,21 +75,24 @@ function rebuildSSLvhosts
 	CABOUNDLEDATA="";
 
 	echo "$FILEDATA" > $VHOSTPATH/$fqdnServerName.conf;
-	echo "|--|--The SSL $fqdnServerName.conf file was successfully created";
-	echo "|--|--|-- SSL conf file: $VHOSTSPATH/$fqdnServerName.conf";
-	echo "|---------------------------------------------------------------";
+	echo "├──├──The SSL $fqdnServerName.conf file was successfully created";
+	echo "├──├──├── SSL conf file: $VHOSTSPATH/$fqdnServerName.conf";
+	echo "|──────────────────────────────────────────────────────────────────────";
 	fi
 	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
 }
 
 function deleteAllVhosts
 {
+	echo "|──Deleting all SSL stuff.....";
+	echo "|──────────────────────────────────────────────────────────────────────";
         ## Checking to see if the SSL was deleted from httpd.conf file
         for domain in  `ls $VHOSTPATH/*.conf`
         do
                 name=${domain#$VHOSTPATH/};
                 cleanname=${name//.conf/};
                 echo "├──Deleting $cleanname SSL stuff";
+		echo "|──────────────────────────────────────────────────────────────────────";
                 rm -rf $VHOSTSPATH/$cleanname.conf;
                 rm -rf $CUSTOMKEYPATH/$cleanname.key;
                 rm -rf $CUSTOMCERTSPATH/$cleanname.crt;
@@ -100,5 +103,5 @@ function deleteAllVhosts
 
 deleteAllVhosts;
 
-echo "|--Reloading nginx";
+echo "├──Reloading nginx";
 service nginx reload;
