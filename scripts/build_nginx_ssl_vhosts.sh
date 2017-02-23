@@ -69,7 +69,7 @@ function rebuildSSLvhosts
 			if [[ -n $SSLCACertificateFile ]]
 			then
 				echo "|──|──|──The SSL CAboundle file was found and was copied to the $CHAINPATH folder.";
-				cp $SSLCACertificateFile $CHAINPATH/$fqdnServerName.pem;
+				sed -n 'p' $SSLCertificateFile $SSLCACertificateFile > $CHAINPATH/$fqdnServerName.pem;
 				echo "|──|──|──|──SSL CAboundle file: $CHAINPATH/$fqdnServerName.pem";
 
 				CABOUNDLEDATA=$"# ============ Start OCSP stapling protection ============
