@@ -47,7 +47,7 @@ function rebuildSSLvhosts
 	echo "|──Searching the cPanel httpd.conf file for all domains that have SSL installed.....";
 	echo "|──────────────────────────────────────────────────────────────────────";
 	
-	while read ServerName ServerAlias SSLCertificateFile SSLCertificateKeyFile SSLCACertificateFile
+	while read ServerName ServerAlias SSLEngine SSLCertificateFile SSLCertificateKeyFile SSLCACertificateFile
 	do
 		## Making sure the SSL cert and key was found before creating the conf file ##
 		if [[ -e $SSLCertificateFile ]] && [[ -e $SSLCertificateKeyFile ]] && [[ $SSLEngine="on" ]];
