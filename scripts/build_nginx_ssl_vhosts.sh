@@ -50,7 +50,7 @@ function rebuildSSLvhosts
 	while read ServerName ServerAlias SSLCertificateFile SSLCertificateKeyFile SSLCACertificateFile
 	do
 		## Making sure the SSL cert and key was found before creating the conf file ##
-		if [[ -n $SSLCertificateFile ]] && [[ -n $SSLCertificateKeyFile ]]
+		if [[ -e $SSLCertificateFile ]] && [[ -e $SSLCertificateKeyFile ]] && [[ $SSLEngine="on" ]];
 		then
 			## Removing the . and - from the domain and replacing it with _ ##
 			fqdn=${ServerName//./_};
@@ -86,7 +86,7 @@ function rebuildSSLvhosts
 			fi
 			buildConfFile;
 	fi
-	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|ServerAlias|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
+	done< <(awk '/^<VirtualHost*/,/^<\/VirtualHost>/{if(/^<\/VirtualHost>/)p=1;if(/ServerName|ServerAlias|SSLEngine|SSLCertificateFile|SSLCertificateKeyFile|SSLCACertificateFile|## ServerName/)out = out (out?OFS:"") (/User/?$3:$2)}p{print out;p=0;out=""}' /usr/local/apache/conf/httpd.conf) 
 	
 	echo "├──Reloading nginx";
 	service nginx reload;
