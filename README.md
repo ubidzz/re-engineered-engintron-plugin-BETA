@@ -16,10 +16,10 @@ The difference between Engintron and Nginx Engine plugins
 
 Nginx Engine
 <ol>
-<li>Don't have to disable the php open_basedir Protection<li>
-<li>Sets the Strict-Transport-Security, X-Frame-Options, Referrer-Policy headers</li>
-<li>Compiled with a newer version of OpenSSL 1.0.2k or higher<li>
-<li>Can handle ALPN, NPN http/2 protocols</li>
+<li>Don't have to disable the php open_basedir Protection
+<li>Sets the Strict-Transport-Security, X-Frame-Options, Referrer-Policy headers
+<li>Compiled with a newer version of OpenSSL 1.0.2k or higher
+<li>Can handle ALPN, NPN http/2 protocols
 </ol>
 
 
