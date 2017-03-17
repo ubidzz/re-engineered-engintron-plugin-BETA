@@ -10,7 +10,7 @@ Engintron URL: https://engintron.com
 
 The difference between Engintron and Nginx Engine plugins
 
-<b>Engintron</b>
+<b>Engintron plugin</b>
 <ol>
 <li>Have to disable php open_basedir Protection
 <li>Websites load using http 1.1 protocol and not http/2
@@ -18,7 +18,7 @@ The difference between Engintron and Nginx Engine plugins
 <li>All https vhosts are compiled in 1 file
 </ol>
 
-<b>Nginx Engine</b>
+<b>Nginx Engine plugin</b>
 <ol>
 <li>Don't have to disable the php open_basedir Protection
 <li>Sets the Strict-Transport-Security, X-Frame-Options, Referrer-Policy headers
