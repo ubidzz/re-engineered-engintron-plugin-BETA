@@ -14,6 +14,7 @@ The difference between Engintron and Nginx Engine plugins
 <li>Have to disable php open_basedir Protection
 <li>Websites load using http 1.1 protocol and not http/2
 <li>It use OpenSSL 1.0.1e-fips
+<li>All https vhosts are compiled in 1 file
 </ol>
 
 Nginx Engine
@@ -22,17 +23,9 @@ Nginx Engine
 <li>Sets the Strict-Transport-Security, X-Frame-Options, Referrer-Policy headers
 <li>Compiled with a newer version of OpenSSL 1.0.2k or higher
 <li>Can handle ALPN, NPN http/2 protocols
+<li>https vhosts are compiles in separate conf files
+<li>The SSL crt, key and caboundle files are copied and are saved in separate directories.
 </ol>
-
-
-<b>Install:</b><br>
-<b>I have not yet made the install page for this plugin and this plugin is still being developed.</b><br>
-  1. Right now you can only manually upload the files to your server and create the folders needed that is shown below in the install tree.<br>
-  2. After uploading the files and creating the folders and setting the permissions run this in SSH /etc/nginx/ssl/build_nginx_ssl_vhosts.sh.<br>
-  3. Then change your Apache SSL port to 444 at WHM->Server Configuration->Tweak Settings->System->Apache SSL port.<br>
-  4. Restart your apache and nginx servers.<br>
-  5. Your finished.
-
 
 <b>Information</b><br>
 This plugin will search the /usr/local/apache/conf/httpd.conf file for all the virtual hosts that have SSL installed by cPanel AutoSSL or by the user in cPanel. This plugin will run every 1 minute to create/update/delete the domain_com.conf, domain_com.crt, domain_com.key and domain_com.pem files. When it is searching the /usr/local/apache/conf/httpd.conf file it will get the installed key, cert, caboundle paths and copy them in to the nginx ssl folders. So if you ever unstall this plugin it wont delete the apache cert, key and cabound files because the nginx server has it own copys. 
