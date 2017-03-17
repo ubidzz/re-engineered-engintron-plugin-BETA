@@ -10,7 +10,7 @@ The difference between Engintron and Nginx Engine plugins
 <b>Engintron</b>
 <ol>
 <li>Have to disable php open_basedir Protection
-<li>Websites network protocol use http 1.1 and http/2
+<li>Websites load using http 1.1 protocol and not http/2
 <li>It use OpenSSL 1.0.1e-fips
 </ol>
 
