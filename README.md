@@ -5,6 +5,14 @@ This is a re-enginered engintron cPanel/WHM plugin and the credit goes to Fotis 
 
 Engintron URL: https://engintron.com
 
+The difference between Engintron and Nginx Engine plugins
+
+<b>Engintron</b>
+<ol>
+<li>Have to disable php open_basedir Protection</li>
+</ol>
+
+
 <b>Install:</b><br>
 <b>I have not yet made the install page for this plugin and this plugin is still being developed.</b><br>
   1. Right now you can only manually upload the files to your server and create the folders needed that is shown below in the install tree.<br>
