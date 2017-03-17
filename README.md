@@ -23,7 +23,7 @@ The difference between Engintron and Nginx Engine plugins
 <li>Don't have to disable the php open_basedir Protection
 <li>Sets the Strict-Transport-Security, X-Frame-Options, Referrer-Policy headers
 <li>Compiled with a newer version of OpenSSL 1.0.2k or higher
-<li>Can handle ALPN, NPN http/2 protocols
+<li>Can handle ALPN, NPN and http/2 protocols
 <li>https vhosts are compiles in separate conf files
 <li>The SSL crt, key and caboundle files are copied and are saved in separate directories.
 </ol>
