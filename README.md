@@ -10,6 +10,16 @@ The difference between Engintron and Nginx Engine plugins
 <b>Engintron</b>
 <ol>
 <li>Have to disable php open_basedir Protection</li>
+<li>Websites network protocol use http 1.1 and http/2</li>
+<li>It use OpenSSL 1.0.1e-fips<li>
+</ol>
+
+Nginx Engine
+<ol>
+<li>Don't have to disable the php open_basedir Protection<li>
+<li>Sets the Strict-Transport-Security, X-Frame-Options, Referrer-Policy headers</li>
+<li>Compiled with a newer version of OpenSSL 1.0.2k or higher<li>
+<li>Can handle ALPN, NPN http/2 protocols</li>
 </ol>
 
 
