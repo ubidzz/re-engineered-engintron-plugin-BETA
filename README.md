@@ -3,7 +3,7 @@
 # Re-enginered-engintron-plugin-BETA
 Enable HTTP/2, OCSP stapling, ALPN, NPN, HSTS, Strict-Transport-Security and compiled with a newer version of OpenSSL
 
-<b>Importing INFO!</b>
+<b>Importing INFO!</b><br>
 This is a re-enginered engintron cPanel/WHM plugin and the credit goes to Fotis Evangelou for the plugin and the credit for the re-enginered plugin goes to Jason Turner.
 
 Engintron URL: https://engintron.com
@@ -18,7 +18,7 @@ The difference between Engintron and Nginx Engine plugins
 <li>All https vhosts are compiled in 1 file
 </ol>
 
-Nginx Engine
+<b>Nginx Engine</b>
 <ol>
 <li>Don't have to disable the php open_basedir Protection
 <li>Sets the Strict-Transport-Security, X-Frame-Options, Referrer-Policy headers
