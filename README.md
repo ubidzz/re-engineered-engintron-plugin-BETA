@@ -3,6 +3,7 @@
 # Re-enginered-engintron-plugin-BETA
 Enable HTTP/2, OCSP stapling, ALPN, NPN, HSTS, Strict-Transport-Security and compiled with a newer version of OpenSSL
 
+<b>Importing INFO!</b>
 This is a re-enginered engintron cPanel/WHM plugin and the credit goes to Fotis Evangelou for the plugin and the credit for the re-enginered plugin goes to Jason Turner.
 
 Engintron URL: https://engintron.com
