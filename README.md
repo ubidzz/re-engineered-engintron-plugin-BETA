@@ -1,5 +1,5 @@
-# SSL-plugin-for-engintron-BETA
-Enable HTTP/2, OCSP stapling, HSTS and automatically builds the SSL conf files for all domains that has SSL installed
+# Re-enginered-engintron-plugin-BETA
+Enable HTTP/2, OCSP stapling, ALPN, NPN, HSTS, Strict-Transport-Security and automatically builds the SSL conf files for all domains that has SSL installed.
 
 <b>Requirements:</b><br>
 Installed engintron plugin for WHM/cPanel
