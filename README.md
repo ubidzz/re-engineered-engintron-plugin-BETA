@@ -1,7 +1,7 @@
 # Right the install script is not finished and will install the default nginx and enginered plugin and is not ready to be used yet.
 
 # Re-enginered-engintron-plugin-BETA
-Enable HTTP/2, OCSP stapling, ALPN, NPN, HSTS, Strict-Transport-Security and compiled with a newer version of OpenSSL
+Enable HTTP/2, OCSP stapling, ALPN, NPN, HSTS and compiled with a newer version of OpenSSL
 
 <b>Importing INFO!</b><br>
 This is a re-enginered engintron cPanel/WHM plugin and the credit goes to Fotis Evangelou for the plugin and the credit for the re-enginered plugin goes to Jason Turner.
