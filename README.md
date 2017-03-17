@@ -1,3 +1,5 @@
+# Right the install script is not finished and will install the default nginx and enginered plugin and is not ready to be used yet.
+
 # Re-enginered-engintron-plugin-BETA
 Enable HTTP/2, OCSP stapling, ALPN, NPN, HSTS, Strict-Transport-Security and compiled with a newer version of OpenSSL
 
